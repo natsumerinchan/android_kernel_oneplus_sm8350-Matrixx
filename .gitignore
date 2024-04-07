@@ -156,7 +156,7 @@ arch/arm/boot/dts/vendor
 Android.bp
 
 # Ignore build Scripts
-error.log
+*.log
 AnyKernel3
 drivers/kernelsu
 kernelSU
