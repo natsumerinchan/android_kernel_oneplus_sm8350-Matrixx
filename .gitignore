@@ -160,3 +160,4 @@ Android.bp
 AnyKernel3
 drivers/kernelsu
 kernelSU
+/KernelSU
