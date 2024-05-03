@@ -109,12 +109,17 @@ build_kernel() {
 make_anykernel3_zip() {
     cd $KERNEL_PATH
     # Extract the kernel version from the Makefile
-    zip_name="OP9RT-v5.4.$(grep "^SUBLEVEL =" Makefile | awk '{print $3}')-$(date +"%Y%m%d-%H%M").zip"
+    zip_name="OP9RT-v5.4.$(grep "^SUBLEVEL =" Makefile | awk '{print $3}')-$(date +"%Y%m%d-%H%M")"
+    if [ "$KernelSU" = true ]; then
+       zip_name="$zip_name-KSU.zip"
+    else
+       zip_name="$zip_name.zip"
+    fi
     cd $KERNEL_PATH/AnyKernel3
     cp $KERNEL_PATH/out/arch/arm64/boot/Image $KERNEL_PATH/AnyKernel3
     zip -r kernel.zip *
     mv kernel.zip $KERNEL_PATH/out
-    ln -sf $KERNEL_PATH/out/kernel.zip $KERNEL_PATH/out/${zip_name}
+    mv $KERNEL_PATH/out/kernel.zip $KERNEL_PATH/out/${zip_name}
     echo -e "${green}out: ${KERNEL_PATH}/out/${zip_name}${clear}"
     echo -e "${clear}"
     echo -e "${green}Completed in $(($(date +%s) - start)) seconds.${clear}"
